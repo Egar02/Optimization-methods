@@ -91,14 +91,14 @@ def SQP_step(x: float, y: float, Lambda: np.array,
     JdL_ = JdL(x, y, Lambda, Hf, Hg, Jg)
     dL_ = dL(x, y, Lambda)
     
-    shift = np.linalg.solve(JdL_, -1 * dL_)
+    step = np.linalg.solve(JdL_, -1 * dL_)
     
-    shift_x = shift[0].item()
-    shift_y = shift[1].item()
+    step_x = step[0].item()
+    step_y = step[1].item()
     
-    shift_Lambda = shift[2:, :]
+    step_Lambda = step[2:, :]
     
-    return shift_x, shift_y, shift_Lambda
+    return step_x, step_y, step_Lambda
 
 
 def SQP_method(x_0: float, y_0:float, Lambda_0: np.array,
@@ -107,7 +107,8 @@ def SQP_method(x_0: float, y_0:float, Lambda_0: np.array,
                Hg: Callable[[float, float], np.array], 
                Jg: Callable[[float, float], np.array], 
                dL: Callable[[float, float, np.array], tuple[float, float, np.array]],
-               goal:float=1e-5) -> tuple[float, float]:
+               goal: float = 1e-5,
+               logs: bool = False) -> tuple[float, float]:
     '''
     Ищет локальный минимум целевой функции при заданных ограничениях
     
@@ -121,6 +122,7 @@ def SQP_method(x_0: float, y_0:float, Lambda_0: np.array,
     Jg - функция, вычисляющая матрицу Якоби ограничивающей функции в точке
     dL - функция, вычисляющая градиент функции Лагранжа в точке
     goal - значение нормы градиента функции Лагранжа, при котором поиск останавливается
+    logs - параметр, отвечающий за то, выводить ли данные на каждом шаге
     
     Возвращаемые значения:
     
@@ -134,7 +136,8 @@ def SQP_method(x_0: float, y_0:float, Lambda_0: np.array,
     
     grad_L = np.sqrt(np.sum(dL(x, y, Lambda) ** 2))
     
-    print(f"Шаг 0:\t x = {x},\t y = {y},\t f = {f(x, y)},\t |grad L| = {np.sqrt(np.sum(dL(x, y, Lambda) ** 2))}")
+    if logs:
+        print(f"Шаг 0:\t x = {x},\t y = {y},\t f = {f(x, y)},\t |grad L| = {np.sqrt(np.sum(dL(x, y, Lambda) ** 2))}")
     
     i = 0
     
@@ -142,15 +145,16 @@ def SQP_method(x_0: float, y_0:float, Lambda_0: np.array,
         
         i += 1
         
-        shift_x, shift_y, shift_Lambda = SQP_step(x, y, Lambda, Hf, Hg, Jg, dL)
+        step_x, step_y, step_Lambda = SQP_step(x, y, Lambda, Hf, Hg, Jg, dL)
         
-        x += shift_x
-        y += shift_y
-        Lambda += shift_Lambda
+        x += step_x
+        y += step_y
+        Lambda += step_Lambda
         
         grad_L = np.sqrt(np.sum(dL(x, y, Lambda) ** 2))
         
-        print(f"Шаг {i + 1}:\t x = {x:.5f},\t y = {y:.5f},\t f = {f(x, y):.4f},\t |grad L| = {grad_L:.5e}")
+        if logs:
+            print(f"Шаг {i + 1}:\t x = {x:.5f},\t y = {y:.5f},\t f = {f(x, y):.4f},\t |grad L| = {grad_L:.5e}")
     
     print("\n_________________________________________________________________________________\n")
     print(f"\n// Найден локальный минимум за {i + 1} шагов //\n\n\

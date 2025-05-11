@@ -108,7 +108,7 @@ def SQP_method(x_0: float, y_0:float, Lambda_0: np.array,
                Jg: Callable[[float, float], np.array], 
                dL: Callable[[float, float, np.array], tuple[float, float, np.array]],
                goal: float = 1e-5,
-               logs: bool = False) -> tuple[float, float]:
+               show: bool = False) -> tuple[float, float, list[tuple[float, float]]]:
     '''
     Ищет локальный минимум целевой функции при заданных ограничениях
     
@@ -122,13 +122,16 @@ def SQP_method(x_0: float, y_0:float, Lambda_0: np.array,
     Jg - функция, вычисляющая матрицу Якоби ограничивающей функции в точке
     dL - функция, вычисляющая градиент функции Лагранжа в точке
     goal - значение нормы градиента функции Лагранжа, при котором поиск останавливается
-    logs - параметр, отвечающий за то, выводить ли данные на каждом шаге
+    show - параметр, отвечающий за то, выводить ли данные на каждом шаге
     
     Возвращаемые значения:
     
     x, y - координаты локального минимума
+    log - данные по точкам, пройденным на каждом шаге алгоритма
     
     '''
+    
+    log = []
     
     x = x_0
     y = y_0
@@ -136,7 +139,9 @@ def SQP_method(x_0: float, y_0:float, Lambda_0: np.array,
     
     grad_L = np.sqrt(np.sum(dL(x, y, Lambda) ** 2))
     
-    if logs:
+    log.append((x, y))
+    
+    if show:
         print(f"Шаг 0:\t x = {x},\t y = {y},\t f = {f(x, y)},\t |grad L| = {np.sqrt(np.sum(dL(x, y, Lambda) ** 2))}")
     
     i = 0
@@ -153,7 +158,9 @@ def SQP_method(x_0: float, y_0:float, Lambda_0: np.array,
         
         grad_L = np.sqrt(np.sum(dL(x, y, Lambda) ** 2))
         
-        if logs:
+        log.append((x, y))
+        
+        if show:
             print(f"Шаг {i + 1}:\t x = {x:.5f},\t y = {y:.5f},\t f = {f(x, y):.4f},\t |grad L| = {grad_L:.5e}")
     
     print("\n_________________________________________________________________________________\n")
@@ -161,4 +168,4 @@ def SQP_method(x_0: float, y_0:float, Lambda_0: np.array,
 В точке:\t\t({x:.3f}, {y:.3f})\n\
 Значение функции:\t\t {f(x, y):.3f}\n")
         
-    return x, y
+    return x, y, log

@@ -108,7 +108,7 @@ def SQP_method(x_0: float, y_0:float, Lambda_0: np.array,
                Jg: Callable[[float, float], np.array], 
                dL: Callable[[float, float, np.array], tuple[float, float, np.array]],
                goal: float = 1e-5,
-               lr: float = 0.1,
+               lr: float = 1,
                show: bool = False) -> tuple[float, float, list[tuple[float, float]]]:
     '''
     Ищет локальный минимум целевой функции при заданных ограничениях

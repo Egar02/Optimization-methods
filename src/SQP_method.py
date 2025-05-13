@@ -104,10 +104,10 @@ def point_character(matrix: np.array):
     
     eigenvalues = np.linalg.eigvals(matrix)
     
-    if np.all(eigenvalues < 0):
+    if np.linalg.det(matrix) < 0:
         return "Найден локальный минимум"
     
-    if np.all(eigenvalues > 0):
+    if np.linalg.det(matrix) > 0:
         return "Найден локальный максимум"
     
     return "Найдено седло"
@@ -181,8 +181,5 @@ def SQP_method(x_0: float, y_0:float, Lambda_0: np.array,
     print(f"\n// {character} за число шагов, равное {i + 1} //\n\n\
 В точке:\t\t({x:.3f}, {y:.3f})\n\
 Значение функции:\t\t {f(x, y):.3f}\n")
-    
-    
-    
-        
+           
     return x, y, log

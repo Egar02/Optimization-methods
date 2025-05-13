@@ -100,6 +100,17 @@ def SQP_step(x: float, y: float, Lambda: np.array,
     
     return step_x, step_y, step_Lambda
 
+def point_character(matrix: np.array):
+    
+    eigenvalues = np.linalg.eigvals(matrix)
+    
+    if np.all(eigenvalues < 0):
+        return "Найден локальный минимум"
+    
+    if np.all(eigenvalues > 0):
+        return "Найден локальный максимум"
+    
+    return "Найдено седло"
 
 def SQP_method(x_0: float, y_0:float, Lambda_0: np.array,
                f: Callable[[float, float], np.array], 
@@ -164,11 +175,14 @@ def SQP_method(x_0: float, y_0:float, Lambda_0: np.array,
         if show:
             print(f"Шаг {i + 1}:\t x = {x:.5f},\t y = {y:.5f},\t f = {f(x, y):.4f},\t |grad L| = {grad_L:.5e}")
     
+    character = point_character(JdL(x, y, Lambda, Hf, Hg, Jg))
+    
     print("\n_________________________________________________________________________________\n")
-    print(f"\n// Найден локальный минимум за число шагов, равное {i + 1} //\n\n\
+    print(f"\n// {character} за число шагов, равное {i + 1} //\n\n\
 В точке:\t\t({x:.3f}, {y:.3f})\n\
 Значение функции:\t\t {f(x, y):.3f}\n")
     
-    print(-np.linalg.det(JdL(x, y, Lambda, Hf, Hg, Jg)))
+    
+    
         
     return x, y, log

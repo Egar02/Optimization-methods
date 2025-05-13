@@ -6,7 +6,6 @@
 пример применения метода для тестовой функции с использованием языка python.
 
 ---
----
 
 Метод применяется для нахождения экстремума произвольной функции $f: \mathbb{R}^n \rightarrow \mathbb{R}$ 
 при заданном нелинейном ограничении в виде $g(x)=0$, где $g: \mathbb{R}^n \rightarrow \mathbb{R}^m$ 
@@ -16,12 +15,14 @@
 Именно этим фактом обусловлено название метода.
 
 ---
+---
 
-# Организация проекта
+## Организация проекта
 
-- В папке src представлена собственная реализация методв SQP на языке python.
-- В папке notebooks в файле SQP.ipynb представлено подробное теоретическое описание метода
+- В папке [src](https://github.com/Egar02/Optimization-methods/tree/main/src) представлена собственная реализация методв SQP на языке python.
+- В папке [notebooks](https://github.com/Egar02/Optimization-methods/blob/main/notebooks/) в файле [SQP.ipynb](https://github.com/Egar02/Optimization-methods/blob/main/notebooks/SQP.ipynb) представлено подробное теоретическое описание метода
     и приведена демонстрация метода на примере функции Розенброка с ограничением в виде кругового цилиндра.
+- В папке [references](https://github.com/Egar02/Optimization-methods/tree/main/references) представлена [статья](https://github.com/Egar02/Optimization-methods/blob/main/references/Sequential-Quadratic-Programming.pdf) о методе SQP.
 
 ---
 ---

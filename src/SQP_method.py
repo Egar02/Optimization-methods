@@ -168,5 +168,7 @@ def SQP_method(x_0: float, y_0:float, Lambda_0: np.array,
     print(f"\n// Найден локальный минимум за число шагов, равное {i + 1} //\n\n\
 В точке:\t\t({x:.3f}, {y:.3f})\n\
 Значение функции:\t\t {f(x, y):.3f}\n")
+    
+    print(-np.linalg.det(JdL(x, y, Lambda, Hf, Hg, Jg)))
         
     return x, y, log

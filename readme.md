@@ -28,7 +28,7 @@
 - В папке [src](https://github.com/Egar02/Optimization-methods/tree/main/src) представлена собственная реализация метода SQP на языке python.
 - В папке [notebooks](https://github.com/Egar02/Optimization-methods/blob/main/notebooks/) в файле [SQP.ipynb](https://github.com/Egar02/Optimization-methods/blob/main/notebooks/SQP.ipynb) представлено подробное теоретическое описание метода
     и приведена демонстрация метода на примере функции Розенброка с ограничением в виде кругового цилиндра.
-- В папке [references](https://github.com/Egar02/Optimization-methods/tree/main/references) представлена [статья](https://github.com/Egar02/Optimization-methods/blob/main/references/Sequential-Quadratic-Programming.pdf) о методе SQP.
+- В папке [references](https://github.com/Egar02/Optimization-methods/tree/main/references) представлена [статья](https://github.com/Egar02/Optimization-methods/blob/main/references/Sequential-Quadratic-Programming.pdf) о методе SQP. Также есть ссылка на google-диск со статьями [Ссылка](https://drive.google.com/drive/folders/1_1hbQDE_bEgR-_61vv1KuW26V7OnFEj_?usp=sharing)
 
 ---
 ---
